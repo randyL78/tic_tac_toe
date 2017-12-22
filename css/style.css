@@ -43,7 +43,8 @@ h1 {
   .screen h1 {
     color: #fff; }
   .screen-start {
-    background: #54D17A; }
+    background: #54D17A; 
+    transition: opacity 1.75s ease-out .5s, transform 2.25s;}
     .screen-start h1 {
       font-size: 6em; }
     .screen-start .button {
@@ -138,4 +139,12 @@ h1 {
       background-color: #3688C3;
       background-image: url(../img/x.svg); }
 
+/* Helper classes */
+.hide {
+  display: none;
+}
 
+.disappear {
+  transform: scale(100.0);
+  opacity: 0;
+}
