@@ -41,7 +41,6 @@
         // =============================
         //   Load Screen
         // =============================
-    
 
         const createLoadScreen = () => {
             const loadScreen = document.createElement("div");
@@ -64,45 +63,58 @@
         // =============================
         //   Game Logic
         // =============================
+ 
+        // Give ownership of square to current player when mouse is clicked in square
         const boxes = document.querySelector(".boxes");
-
-
         boxes.onclick = (e) => {
+            currentBox(e.target);
             board.forEach( (square) => {
                 if (e.target === square.element) {
-                   if (square.ownedBy === "none") square.ownedBy = "1";                  
+                   if (square.ownedBy === "none") {
+                       square.ownedBy = playerTurn;
+                       showTurn();
+                    }
                 }
             });
         }
-
+        // Add the player's symbol when mouse hovers over square
         boxes.onmouseover = (e) => {
-            if (e.target.classList.contains("box") ) {
-                e.target.classList.add("box-filled-1");
-            };
-        };
-
-        boxes.onmouseout = (e) => {
             board.forEach( (square) => {
                 if (e.target === square.element) {
-                   if (square.ownedBy === "none") e.target.classList.remove("box-filled-1");                
+                   if (square.ownedBy === "none") e.target.classList.add(`box-filled-${playerTurn}`);                
                 }
             });
         };
 
-        const getBoxLoc = (hitBox) => {
-            // boxArray.forEach( (box, index) => {
-            //     if (hitBox === box) {
-            //         const row = Math.floor(index / 3);
-            //         const col = index % 3;
-            //         return {row: row, col: col};
-            //     }
-            // });
-            return false;        
+        // Remove player's symbol when mouse leaves square
+        boxes.onmouseout = (e) => {
+            board.forEach( (square) => {
+                if (e.target === square.element) {
+                   if (square.ownedBy === "none") e.target.classList.remove(`box-filled-${playerTurn}`);                
+                }
+            });
+        };
+
+        const checkOwnership = (currentBox) => {
+            board.forEach( (square) => {
+                if (currentBox === square.element) {
+                    console.log("You found me!");
+                }
+            }
+        }
+
+        // Show whose turn it is in header
+        const showTurn = () => {
+            document.getElementById(`player${playerTurn}`).classList.remove("active");
+            (playerTurn === 1) ? playerTurn = 2 : playerTurn = 1;
+            document.getElementById(`player${playerTurn}`).classList.add("active");
         }
 
         // =============================
         //   Players
         // =============================
+        let playerTurn = 2; 
+        showTurn();
 
         // =============================
         //   Board
@@ -126,13 +138,6 @@
 
         };
 
-        // const buildColumn = (row) => {
-        //     let tempArray = [];
-        //     for (let j = 0; j < 3; j++) {
-        //         tempArray.push(new Square([row, j]));
-        //     }  
-        //     return tempArray;
-        // }
         const board = buildBoard();
 
 
