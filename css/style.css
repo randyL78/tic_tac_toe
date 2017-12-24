@@ -138,6 +138,8 @@ h1 {
     .boxes .box-filled-2 {
       background-color: #3688C3;
       background-image: url(../img/x.svg); }
+    .box:hover {
+      opacity: .5; }
 
 /* Helper classes */
 .hide {
