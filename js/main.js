@@ -39,7 +39,7 @@
 
 
         // =============================
-        //   Load Screen
+        //   HTML Components
         // =============================   
 
         // HTML for Overlay header
@@ -62,7 +62,7 @@
             `;
         };
 
-
+        // HTML for main body
         const bodyHTML = (prop) => {
             return`
                 <div class="board" id="board">
@@ -92,12 +92,15 @@
         // Display the HTML on the page
         const body = document.querySelector("body");
         body.innerHTML = bodyHTML({id: "start", class: "screen screen-start", buttonText: "Start", message: "" });
-        const overlay = document.querySelector(".screen");
+        // const overlay = document.querySelector(".screen");
         body.onclick = e => {
+            // Submit button
             if (e.target.classList.contains("button")) {
                 disappearElement(document.querySelector(".screen"));
                 board = buildBoard();
-                console.log(board);
+                playerTurn = 2;
+                showTurn();
+            // Boxes
             } else if (e.target.classList.contains("box")) {
                 const square = checkOwnership(e.target);
                 if (square) {
@@ -191,8 +194,8 @@
         // =============================
         //   Players
         // =============================
-        let playerTurn = 2; 
-        showTurn();
+        let playerTurn;
+       
 
         // =============================
         //   Board
