@@ -95,6 +95,7 @@ h1 {
 
 .players {
   color: rgba(0, 0, 0, 0.2);
+  box-shadow:  3px 3px 9px 0 #444 inset, -3px -3px 9px 0 #eee inset;
   text-align: center;
   position: absolute;
   top: 1rem;
@@ -102,6 +103,9 @@ h1 {
   padding: 1.25em 0 1em;
   outline: 1px solid #ccc;
   transition: 1s; }
+  .players.active {
+    box-shadow:  3px 3px 9px 0 #eee inset, -3px -3px 9px 0 #444 inset;
+  }
   .players svg g {
     fill: rgba(0, 0, 0, 0.25); }
   .players:first-child {
@@ -113,6 +117,7 @@ h1 {
   }
   #player1.active svg g, #player2.active svg g {
     fill: #fff; }
+
   #player1.active {
     background: #FFA000; }
   #player2.active {
