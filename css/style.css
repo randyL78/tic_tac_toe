@@ -52,8 +52,8 @@ h1 {
 
     .screen-start .button {
       color: #54D17A; }
-    .screen-start h1 + .button {
-      margin-top: 5em; }
+    .screen-start .button {
+      margin-top: 1em; }
   .screen-win p {
     font-size: 6em;
     font-weight: 700;
@@ -103,9 +103,14 @@ h1 {
   padding: 1.25em 0 1em;
   outline: 1px solid #ccc;
   transition: 1s; }
+  .players h1 {
+    text-align: center;
+    width: 100%;
+  }
   .players.active {
     box-shadow:  3px 3px 9px 0 #eee inset, -3px -3px 9px 0 #444 inset;
   }
+
   .players svg g {
     fill: rgba(0, 0, 0, 0.25); }
   .players:first-child {
@@ -119,13 +124,18 @@ h1 {
     fill: #fff; }
 
   #player1.active {
-    background: #FFA000; }
+    background: #FFA000; 
+    color: #EFEFEF;
+  }
+    
   #player2.active {
-    background: #3688C3; }
+    background: #3688C3; 
+    color: #EFEFEF;
+  }
 
 .boxes {
   width: 480px;
-  margin: 3em auto 0; }
+  margin: 7em auto 0; }
   .boxes::after {
     content: "";
     clear: both;
@@ -166,4 +176,13 @@ h1 {
 .disappear {
   transform: scale(100.0);
   opacity: 0;
+}
+
+.disabled {
+  color: #777;
+}
+
+.radioGroup {
+  border: none;
+  margin-top: .7em;
 }
