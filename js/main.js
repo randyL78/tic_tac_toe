@@ -174,13 +174,13 @@ const bodyProps = {
     winnerOne   : { id: "finish", 
                     class: `screen screen-win screen-win-one`, 
                     buttonText: "New Game", 
-                    message: "Winner!",
+                    message: `Congratulations, ${Players.player1.name} You Won!`,
                     player1: Players.player1.name,
                     player2: Players.player2.name },
     winnerTwo   : { id: "finish", 
                     class: `screen screen-win screen-win-two`,
                     buttonText: "New Game", 
-                    message: "Winner!",
+                    message: `Congratulations, ${Players.player2.name} You Won!`,
                     player1: Players.player1.name,
                     player2: Players.player2.name },
     tie         : { id: "finish", 
@@ -189,6 +189,10 @@ const bodyProps = {
                     message: "Tie!",
                     player1: Players.player1.name,
                     player2: Players.player2.name },
+    updateNames : function () {
+                    this.winnerOne.message = `Congratulations, ${Players.player1.name} You Won!`,
+                    this.winnerTwo.message = `Congratulations, ${Players.player2.name} You Won!`               
+                }
 }
 
 // Create a submit click event handler for each instance of button
@@ -201,6 +205,7 @@ const bindSubmit = () => {
             const player2Input = document.getElementById("name2"); 
             (player2Input.value) ? Players.player2.name = player2Input.value : Players.player2.name = player2Input.getAttribute("placeholder");           
         }
+        bodyProps.updateNames();
         htmlComponents.setPlayers(Players);
         element.disappear(screen);
         board = buildBoard();
@@ -295,6 +300,11 @@ const showTurn = () => {
     document.getElementById(`player${Players.current}`).classList.add("active");
 };
 
+
+// =============================
+//   Check for Winner
+// ============================= 
+
 // check to see if player won
 const checkWin = () => {
     let didWin = false;
@@ -326,6 +336,8 @@ const checkWin = () => {
     {
         // Display winner screen
         // setTimeout ( () => {
+            console.log(Players.player1.name);
+            console.log(bodyProps);
             body.innerHTML = htmlComponents.body((Players.current === 1) ? bodyProps.winnerOne : bodyProps.winnerTwo);
             bindSubmit();
             didWin = true;
