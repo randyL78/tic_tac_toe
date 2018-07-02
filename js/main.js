@@ -12,8 +12,7 @@ const main = function() {
 
 const Players = {
     player1         : {name: "Player1"},
-    player2         : { name: "Computer",
-                        type: "computer"},
+    player2         : { name: "Computer", type: "computer"},
     current         : 2,
     computersTurn   : false,
     switch          : function() {(this.current === 1) ? this.current = 2 : this.current = 1 },
@@ -125,14 +124,14 @@ body.onclick = e => {
 
 
 // Add the player's symbol when mouse hovers over square
-body.onmouseover = (e) => {
+body.onmouseover = e => {
     if (e.target.classList.contains("box") && !Players.computersTurn) {
         if (checkOwnership(e.target)) e.target.classList.add(`box-filled-${Players.current}`);
     }
 };
 
 // Remove player's symbol when mouse leaves square
-body.onmouseout = (e) => {
+body.onmouseout = e => {
     if (e.target.classList.contains("box") && !Players.computersTurn) {
         if (checkOwnership(e.target)) e.target.classList.remove(`box-filled-${Players.current}`);
     }
@@ -215,33 +214,17 @@ const checkWin = () => {
 // =============================
 //   Board
 // ============================= 
-
-// TODO Convert board from an array to an object, and refactor all related functions as methods
-// const Board = {
-//     squares : [],
-//     build   : function () {
-//                 let tempArray = [];
-//                 for (let r = 0; r < 3; r++) {
-//                     for (let c = 0; c < 3; c++) {
-//                         tempArray.push(new Square({row: r, column: c}));
-//                     }  
-//                 }
-//                 this.squares = tempArray;
-//             }
-// }
-
-
-
-
 // Array to hold the Square objects
 let board = []; 
 
 // An individual square object of tic-tac-toe board
-function Square(location, ownedBy = "none") {
-    this.location = location;
-    this.ownedBy = ownedBy;
-    this.element = document.querySelectorAll(".box")[(this.location.row * 3) + this.location.column];
-    this.isAt = function(loc) {return (this.location.row === loc.row && this.location.column === loc.column) ? true : false};
+class Square {
+    constructor(location, ownedBy = "none") {
+        this.location = location;
+        this.ownedBy = ownedBy;
+        this.element = document.querySelectorAll(".box")[(this.location.row * 3) + this.location.column];
+        this.isAt = function (loc) { return (this.location.row === loc.row && this.location.column === loc.column) ? true : false; };
+    }
 }
 
 // Build an array of squares representing tic-tac-toe board
@@ -254,10 +237,6 @@ const buildBoard = () => {
     }
     return tempArray;
 };
-
-
-
-
 
 // =============================
 //   AI
@@ -355,6 +334,11 @@ const checkComputerMove = () => {
 
 }
 
+/**
+ * Select a random number within given bounds
+ * @param {integer} upperRange 
+ * @param {integer} lowerRange defaults to zero
+ */
 const getRandom = (upperRange, lowerRange = 0 ) => {
     return Math.floor(Math.random() * (upperRange - lowerRange)) + lowerRange; 
 }

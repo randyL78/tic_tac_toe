@@ -17,7 +17,7 @@ const element = function() {
      * Show an element
     * @param {object} element  The element to show
     */
-    const show = (element) => {
+    const show = element => {
         element.classList.remove("hide");
     };
     /**
