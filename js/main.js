@@ -43,6 +43,12 @@ const bodyProps = {
                     message: `Congratulations, ${Players.player2.name} You Won!`,
                     player1: Players.player1.name,
                     player2: Players.player2.name },
+    winnerComp   : { id: "finish", 
+                    class: `screen screen-win screen-win-two`,
+                    buttonText: "New Game", 
+                    message: `Sorry, ${Players.player1.name} You Lost!`,
+                    player1: Players.player1.name,
+                    player2: Players.player2.name },
     tie         : { id: "finish", 
                     class: `screen screen-win screen-win-tie`, 
                     buttonText: "New Game", 
@@ -195,7 +201,9 @@ const checkWin = () => {
         )
     {
         // Display winner screen
-        body.innerHTML = htmlComponents.body((Players.current === 1) ? bodyProps.winnerOne : bodyProps.winnerTwo);
+        body.innerHTML = htmlComponents.body((Players.current === 1) ? 
+            bodyProps.winnerOne :
+            Players.player2.type === "computer" ? bodyProps.winnerComp : bodyProps.winnerTwo);
         bindSubmit();
         didWin = true;
     } else if (board.filter(square => square.ownedBy === "none").length === 0) {
@@ -207,9 +215,6 @@ const checkWin = () => {
     showTurn();
     return didWin;
 };
-
-
-
 
 // =============================
 //   Board
@@ -249,7 +254,7 @@ const buildBoard = () => {
 
 const checkComputerMove = () => {
     // Basic Pattern searching
-    const checkDiag = (player) => {
+    const checkDiag = player => {
         let hasDiag = false;
         // check if center is taken by player
         if (board[4].ownedBy === player) {
