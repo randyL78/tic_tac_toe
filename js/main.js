@@ -19,6 +19,7 @@ const Players = {
     opposite        : function() {return (this.current === 1) ?  2 :  1  }
 }
 
+
 // =============================
 //   Body Properties
 // =============================
